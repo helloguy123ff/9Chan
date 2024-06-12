@@ -1,31 +1,70 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+        <!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Categoria - 9Chan</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>21Chan - Categoria</title>
+
 </head>
 <body>
-    <header>
-        <img src="logo.png" alt="9Chan Logo" class="logo">
-        <h1>Categoria - 9Chan</h1>
-    </header>
+    <h1 id="categoriaTitulo">Categoria</h1>
+    <div id="postsContainer"></div>
+    <h2>Criar Novo Tópico</h2>
+    <form id="novoPostForm">
+        <input type="text" id="titulo" placeholder="Título" required>
+        <textarea id="conteudo" placeholder="Conteúdo" required></textarea>
+        <input type="file" id="imagem" accept="image/*" required>
+        <button type="submit">Postar</button>
+    </form>
 
-    <div class="category-info">
-        <h2>Categoria:</h2>
-        <p>${getCategory()}</p>
-    </div>
+  <script>
+          
+          document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoria = urlParams.get('categoria');
 
-    <footer>
-        <p>&copy; 2024 9Chan</p>
-    </footer>
+    if (categoria) {
+        document.getElementById('categoriaTitulo').innerText = categoria.charAt(0).toUpperCase() + categoria.slice(1);
+        carregarPosts(categoria);
+    }
 
-    <script>
-        function getCategory() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('categoria') || 'Categoria não especificada';
-        }
-    </script>
+    document.getElementById('novoPostForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        criarNovoPost(categoria);
+    });
+});
+
+function carregarPosts(categoria) {
+    let postsContainer = document.getElementById('postsContainer');
+    let posts = JSON.parse(localStorage.getItem(categoria)) || [];
+    postsContainer.innerHTML = '';
+    posts.forEach(post => {
+        let postElement = document.createElement('div');
+        postElement.className = 'post';
+        postElement.innerHTML = `
+            <h3>${post.titulo}</h3>
+            <p>${post.conteudo}</p>
+            <img src="${post.imagem}" alt="Imagem do post">
+        `;
+        postsContainer.appendChild(postElement);
+    });
+}
+
+function criarNovoPost(categoria) {
+    let titulo = document.getElementById('titulo').value;
+    let conteudo = document.getElementById('conteudo').value;
+    let imagemInput = document.getElementById('imagem');
+    let imagem = URL.createObjectURL(imagemInput.files[0]);
+
+    let posts = JSON.parse(localStorage.getItem(categoria)) || [];
+    posts.push({ titulo, conteudo, imagem });
+    localStorage.setItem(categoria, JSON.stringify(posts));
+
+    carregarPosts(categoria);
+    document.getElementById('novoPostForm').reset();
+}
+</script>
+
+
 </body>
 </html>
