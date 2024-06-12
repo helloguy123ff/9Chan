@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categoria - 9Chan</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="9Chan Logo" class="logo">
+        <h1>Categoria - 9Chan</h1>
+    </header>
+
+    <div class="category-info">
+        <h2>Categoria:</h2>
+        <p>${getCategory()}</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 9Chan</p>
+    </footer>
+
+    <script>
+        function getCategory() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('categoria') || 'Categoria não especificada';
+        }
+    </script>
+</body>
+</html>
