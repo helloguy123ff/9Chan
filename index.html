@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9Chan</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="9Chan Logo" class="logo">
+        <h1>9Chan</h1>
+    </header>
+
+    <div class="about">
+        <h2>O que é o 9Chan?</h2>
+        <p>É um simples imageboard baseado em fóruns japoneses.</p>
+    </div>
+
+    <nav>
+        <ul>
+            ${Array.from({length: 100}, (_, i) => `
+                <li><a href="categorias.html#cat${i + 1}">/cat${i + 1}/ - Categoria ${i + 1}</a></li>
+            `).join('')}
+        </ul>
+    </nav>
+
+    <footer>
+        <p>&copy; 2024 9Chan</p>
+    </footer>
+</body>
+</html>
