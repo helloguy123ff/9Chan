@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorias - 9Chan</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="9Chan Logo" class="logo">
+        <h1>Categorias - 9Chan</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Voltar ao Início</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        ${Array.from({length: 100}, (_, i) => `
+            <section id="cat${i + 1}">
+                <h3>/cat${i + 1}/ - Categoria ${i + 1}</h3>
+                <form onsubmit="postMessage(event, 'cat${i + 1}')">
+                    <textarea id="cat${i + 1}-text" placeholder="Digite sua mensagem aqui..."></textarea><br>
+                    <input type="submit" value="Postar">
+                </form>
+                <div id="cat${i + 1}-posts"></div>
+            </section>
+        `).join('')}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 9Chan</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
